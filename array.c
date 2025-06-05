@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <string.h>
 
-// Убрано дублирование INITIAL_CAPACITY
 
 void array_init(ArrayList *list, LinearAllocator *allocator) {
   assert(list != NULL);

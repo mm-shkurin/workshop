@@ -11,8 +11,8 @@ int main() {
   linear_allocator_init(&test_allocator, test_memory_block,
                         sizeof(test_memory_block));
 
-  int *test_int_array = (int *)linear_allocator_allocate(&test_allocator,
-                                                         10 * sizeof(int));
+  int *test_int_array =
+      (int *)linear_allocator_allocate(&test_allocator, 10 * sizeof(int));
   assert(test_int_array != NULL && "Allocation failed!");
 
   for (int i = 0; i < 10; i++) {

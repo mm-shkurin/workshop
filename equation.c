@@ -40,8 +40,7 @@ EquationSolution solve_quadratic(double a, double b, double c, double eps) {
       solution.roots[0] = solution.roots[1];
       solution.roots[1] = temp;
     }
-  } 
-  else if (fabs(discriminant) < eps) {
+  } else if (fabs(discriminant) < eps) {
     solution.count = 1;
     solution.roots = malloc(sizeof(double));
     solution.roots[0] = -b / (2 * a);

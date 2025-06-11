@@ -9,15 +9,10 @@ typedef struct {
 } Stack;
 
 void init_stack(Stack *stack);
-
 int is_empty(Stack *stack);
-
 int is_full(Stack *stack);
-
-void push(Stack *stack, int value);
-
-int pop(Stack *stack);
-
-int peek(Stack *stack);
+int push(Stack *stack, int value);
+int pop(Stack *stack, int *value);
+int peek(Stack *stack, int *value);
 
 #endif

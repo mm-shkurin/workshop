@@ -1,5 +1,6 @@
 #include "pool_alloc.h"
 #include <assert.h>
+#include <stdint.h>
 #include <string.h>
 
 void pool_allocator_init(PoolAllocator *allocator, void *memory_block,

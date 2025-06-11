@@ -9,30 +9,29 @@ EquationSolution solve_quadratic(double a, double b, double c, double eps) {
     return solution;
   }
 
-  if (fabs(b) < eps && fabs(c) < eps) {
-    solution.count = 1;
-    solution.roots = malloc(sizeof(double));
-    solution.roots[0] = 0.0;
-    return solution;
-  }
-
   double discriminant = b * b - 4 * a * c;
 
   if (fabs(discriminant) < eps) {
     discriminant = 0.0;
   }
 
-  if (discriminant > eps) {
+  if (discriminant < -eps) {
+    return solution;
+  } else if (discriminant > eps) {
     solution.count = 2;
     solution.roots = malloc(2 * sizeof(double));
 
-    double sqrt_discr = sqrt(discriminant);
-    if (b >= 0) {
-      solution.roots[0] = (-b - sqrt_discr) / (2 * a);
-      solution.roots[1] = (2 * c) / (-b - sqrt_discr);
+    if (b > eps) {
+      double q = -0.5 * (b + sqrt(discriminant));
+      solution.roots[0] = q / a;
+      solution.roots[1] = c / q;
+    } else if (b < -eps) {
+      double q = -0.5 * (b - sqrt(discriminant));
+      solution.roots[0] = c / q;
+      solution.roots[1] = q / a;
     } else {
-      solution.roots[0] = (2 * c) / (-b + sqrt_discr);
-      solution.roots[1] = (-b + sqrt_discr) / (2 * a);
+      solution.roots[0] = -sqrt(-c / a);
+      solution.roots[1] = sqrt(-c / a);
     }
 
     if (solution.roots[0] > solution.roots[1]) {
@@ -40,7 +39,7 @@ EquationSolution solve_quadratic(double a, double b, double c, double eps) {
       solution.roots[0] = solution.roots[1];
       solution.roots[1] = temp;
     }
-  } else if (fabs(discriminant) < eps) {
+  } else {
     solution.count = 1;
     solution.roots = malloc(sizeof(double));
     solution.roots[0] = -b / (2 * a);

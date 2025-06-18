@@ -19,8 +19,12 @@ test:
 	@for test_file in $$(find . -maxdepth 1 -name "*_test.c"); do \
 		base=$$(basename "$$test_file" .c); \
 		main_file=$${base%%_test*}.c; \
-		echo "Building $$base from $$main_file and $$test_file"; \
-		$(CC) $(CFLAGS) $$main_file $$test_file -o $$base $(LDFLAGS); \
+		extra_files=""; \
+		if [ "$$base" = "hashtable_test" ]; then \
+			extra_files="pool_alloc.c"; \
+		fi; \
+		echo "Building $$base from $$main_file, $$test_file and $$extra_files"; \
+		$(CC) $(CFLAGS) $$main_file $$test_file $$extra_files -o $$base $(LDFLAGS); \
 		echo "Running $$base..."; \
 		./$$base || exit 1; \
 	done
